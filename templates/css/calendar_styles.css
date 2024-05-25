@@ -1,0 +1,128 @@
+body {
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh;
+  margin: 0;
+  background-color: #f4f4f4;
+}
+
+#calendar {
+  width: 100%;
+  max-width: 900px;
+  background: white;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+#header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #027702;
+  color: white;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  max-width: 860px;
+  z-index: 1;
+}
+
+.weekdays, .week {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.weekdays div, .week button {
+  width: calc(100% / 7);
+  text-align: center;
+  padding: 40px;
+  box-sizing: border-box;
+}
+
+.weekdays {
+  background-color: #ddd;
+  margin-top: 60px; /* Adjust this value if your header height changes */
+}
+
+.week button {
+  border: 1px solid #ddd;
+  min-height: 80px;
+  position: relative;
+}
+
+.free {
+  background-color: buttonface;
+  cursor: pointer;
+}
+
+.free:active {
+  border-color: darkblue;
+  background-color: #e8e4df;
+}
+
+.confirmed {
+  background-color: #a11a1a;
+  pointer-events: none;
+}
+
+.not-confirmed {
+  background-color: #eccf41;
+  pointer-events: none;
+}
+
+.None {
+  color: buttonface;
+  background-color: buttonface;
+  pointer-events: none;
+}
+
+/* Styles for the popup */
+.popup {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+}
+
+/* Popup content */
+.popup-content {
+    background-color: #fefefe;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; /* Could be more or less, depending on screen size */
+    max-width: 800px;
+    height: 80%; /* Could be more or less, depending on screen size */
+    max-height: 600px;
+    position: relative;
+}
+
+/* Close button */
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+iframe {
+    width: 100%;
+    height: calc(100% - 40px); /* Adjust to avoid overlapping with padding */
+    border: none;
+}
