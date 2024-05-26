@@ -1,34 +1,23 @@
 from datetime import date, datetime, timedelta
-from typing import Type, List, Iterable
-from sqlalchemy.orm import Session, InstrumentedAttribute
+from typing import List, Iterable
+from sqlalchemy.orm import Session
 
 from utilites.config_parser import get_config_data
-from .core import NotFoundError
 from model.api_event import Event
-from model.db_event import EventUpdate, DBEvent
+from model.db_event import DBEvent
 from gcsa.event import Event as GoogleEvent
 
 
-def get_all_future_events(start_date: date, session: Session) -> dict[InstrumentedAttribute[date], Type[DBEvent]]:
+def get_all_future_events(start_date: date, session: Session) -> dict[date, DBEvent]:
     events = session.query(DBEvent).filter(DBEvent.date >= start_date)
     return {event.date: event for event in events}
 
 
-def read_db_event(event_date: date, session: Session) -> DBEvent:
-    db_event = session.query(DBEvent).filter(DBEvent.date == event_date).first()
-    if db_event is None:
-        raise NotFoundError(f"Event with {event_date=} not found.")
-    return db_event
-
-
 def create_db_event(event: Event, google_id: str, session: Session) -> DBEvent:
-    try:
-        db_event = read_db_event(event.date, session)
-    except NotFoundError:
-        db_event = DBEvent(**event.__dict__, google_id=google_id)
-        session.add(db_event)
-        session.commit()
-        session.refresh(db_event)
+    db_event = DBEvent(**event.__dict__, google_id=google_id)
+    session.add(db_event)
+    session.commit()
+    session.refresh(db_event)
     return db_event
 
 
