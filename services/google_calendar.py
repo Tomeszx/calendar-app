@@ -1,10 +1,10 @@
 from datetime import datetime
-from typing import Iterable, List
+from typing import List
 from gcsa.google_calendar import GoogleCalendar
 from gcsa.event import Event as GoogleEvent
 from googleapiclient.errors import HttpError
 
-from model.api_event import Event as ApiEvent
+from model.api_event import EventCreate
 from utilites.config_parser import get_config_data
 
 
@@ -12,7 +12,7 @@ ADMIN_EMAIL = get_config_data('google', 'admin_email')
 CALENDAR_ID = get_config_data('google', 'calendar_id')
 
 
-def add_event(event: ApiEvent) -> GoogleEvent:
+def add_event(event: EventCreate) -> GoogleEvent:
     calendar = GoogleCalendar(CALENDAR_ID, credentials_path=get_config_data('google', 'path_to_secret'))
     google_event = GoogleEvent(
         f'{event.event_type} with {event.name}',

@@ -9,15 +9,15 @@ from services.google_calendar import add_event
 from .limiter import limiter
 from fastapi import APIRouter, Request
 
-from model.api_event import Event
+from model.api_event import Event, EventCreate
 
 route = APIRouter(prefix="/event")
 templates = Jinja2Templates(directory="templates")
 
 
-@route.post("/create", response_class=HTMLResponse, tags=["create"])
+@route.post("/", response_class=HTMLResponse, tags=["create"])
 @limiter.limit("1/second")
-async def create_event(request: Request, event: Event = Depends(Event.as_form), db: Session = Depends(get_db)) -> HTMLResponse:
+async def create_event(request: Request, event: EventCreate = Depends(EventCreate.as_form), db: Session = Depends(get_db)) -> HTMLResponse:
     google_event = add_event(event)
     db_event = create_db_event(event, google_event.event_id, db)
     if db_event:
