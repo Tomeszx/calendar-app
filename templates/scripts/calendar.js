@@ -6,7 +6,7 @@ function get_new_month(direction) {
     let date_year_path = new_date.getFullYear().toString() + '/' + String(new_date.getMonth() + 1)
     $.ajax({
         type: "GET",
-        url: "http://127.0.0.1:8000/date/" + date_year_path,
+        url: "http://127.0.0.1:8000/calendar/" + date_year_path,
         success: function (month) {
             replace_new_month(month, new_date);
         },
@@ -15,30 +15,32 @@ function get_new_month(direction) {
 
 function replace_new_month(month, date) {
     let newContent = document.createElement('div');
-    newContent.id = 'weeks'
-    month.weeks.forEach((week) => {
-        let weekDiv = document.createElement('div');
-        weekDiv.className = 'week';
+    newContent.id = 'weeks';
+    month.days.forEach((day, index) => {
+        if (index === 0 || index % 7 === 0){
+            let weekDiv = document.createElement('div');
+            weekDiv.className = 'week';
+            newContent.appendChild(weekDiv);
+        }
 
-        week.days.forEach((day) => {
-            let button = document.createElement('button');
-            if (date.day !== 0){
-                button.name = day.date;
-            }
-            button.className = day.status;
-            button.textContent = day.month_index;
-            button.setAttribute("onclick", "open_iframe(event)")
-            weekDiv.appendChild(button);
-        });
-        newContent.appendChild(weekDiv);
+        let weekDiv = newContent.lastChild
+        let button = document.createElement('button');
+        if (date.day !== 0){
+            button.name = day.date;
+        }
+
+        button.className = day.status;
+        button.textContent = day.month_index;
+        button.setAttribute("onclick", "open_iframe(event)")
+        weekDiv.appendChild(button);
     });
-
     let date_header = document.getElementById('monthYear')
     date_header.textContent = date.toLocaleString('default', {month: 'long', year: 'numeric'}).toUpperCase()
     date_header.title = date.toLocaleString('default', {year: 'numeric', month: 'numeric', day: 'numeric'})
     let element = document.getElementById('weeks');
     element.replaceWith(newContent);
 }
+
 
 function open_iframe(event) {
     let date = event.target.getAttribute('name');

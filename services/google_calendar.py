@@ -16,8 +16,8 @@ def add_event(event: EventCreate) -> GoogleEvent:
     calendar = GoogleCalendar(CALENDAR_ID, credentials_path=get_config_data('google', 'path_to_secret'))
     google_event = GoogleEvent(
         f'{event.event_type} with {event.name}',
-        start=datetime(event.date.year, event.date.month, event.date.day, hour=event.start_time.hour - 3),
-        end=datetime(event.date.year, event.date.month, event.date.day, hour=23, minute=59, second=59),
+        start=event.start,
+        end=event.end,
         description='',
         location=event.location,
         attendees=[ADMIN_EMAIL]

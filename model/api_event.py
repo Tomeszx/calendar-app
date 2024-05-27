@@ -6,11 +6,11 @@ from pydantic import BaseModel, EmailStr
 
 
 class Event(BaseModel):
-    id: UUID
+    google_event_id: str
     name: str
     email: EmailStr
-    date: datetime.date
-    start_time: datetime.time
+    start: datetime.date
+    end: datetime.date
     event_type: str
     location: str
     confirmed: bool = False
@@ -18,7 +18,7 @@ class Event(BaseModel):
     @classmethod
     def as_form(
             cls,
-            id: UUID = Form(...),
+            google_event_id: UUID = Form(...),
             name: str = Form(1),
             email: EmailStr = Form(2),
             date: str = Form(3),
@@ -27,7 +27,7 @@ class Event(BaseModel):
             location: str = Form(6),
     ):
         return cls(
-            id=id,
+            google_event_id=google_event_id,
             name=name,
             email=email,
             date=datetime.datetime.strptime(date, "%Y.%m.%d"),
@@ -40,8 +40,8 @@ class Event(BaseModel):
 class EventCreate(BaseModel):
     name: str
     email: EmailStr
-    date: datetime.date
-    start_time: datetime.time
+    start: datetime.date | datetime.datetime
+    end: datetime.date | datetime.datetime
     event_type: str
     location: str
     confirmed: bool = False
@@ -51,16 +51,17 @@ class EventCreate(BaseModel):
             cls,
             name: str = Form(...),
             email: EmailStr = Form(1),
-            date: str = Form(2),
-            start_time: datetime.time = Form(3),
+            start: str = Form(2),
             event_type: str = Form(4),
             location: str = Form(5),
     ):
+        start_date = datetime.datetime.strptime(start, "%Y.%m.%d").date()
+        end_date = start_date
         return cls(
             name=name,
             email=email,
-            date=datetime.datetime.strptime(date, "%Y.%m.%d"),
-            start_time=start_time,
+            start=start_date,
+            end=end_date,
             event_type=event_type,
             location=location,
         )
