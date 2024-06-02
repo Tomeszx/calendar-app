@@ -1,16 +1,23 @@
-from datetime import date, datetime, timedelta
-from functools import partial
+from datetime import date, timedelta
 from typing import List, Iterable
 from sqlalchemy.orm import Session
 
 from utilites.config_parser import get_config_data
-from model.api_event import Event, EventCreate
+from model.api_event import EventCreate
 from model.db_event import DBEvent
 from gcsa.event import Event as GoogleEvent
 
 
 def get_all_future_events(start_date: date, session: Session) -> List[DBEvent]:
     return list(session.query(DBEvent).filter(DBEvent.start >= start_date))
+
+
+def check_if_daily_events_are_full(event_date: date, event_name: str, session: Session) -> bool:
+    events = list(session.query(DBEvent).filter(DBEvent.start == event_date))
+    max_events_per_day = get_config_data('events_max_per_day', event_name)
+    if len(events) >= int(max_events_per_day):
+        return True
+    return False
 
 
 def create_db_event(event: EventCreate, google_event_id: str, session: Session) -> DBEvent:
@@ -38,7 +45,7 @@ def __create_event(event: GoogleEvent, session: Session) -> None:
         name=attendee.display_name or '',
         email=attendee.email,
         location=event.location or '',
-        event_type=event.other['eventType'],
+        event_type=event.summary.split(' -')[0],
         confirmed=attendee.response_status == 'confirmed',
         google_event_id=event.event_id
     )
@@ -46,7 +53,7 @@ def __create_event(event: GoogleEvent, session: Session) -> None:
 
 
 def update_db_events(events: Iterable[GoogleEvent], session: Session) -> None:
-    db_events = list(session.query(DBEvent).filter(DBEvent.start >= date.today()))
+    db_events = list(session.query(DBEvent).filter(DBEvent.end >= date.today()))
     for event in events:
         db_event = next(filter(lambda e: e.google_event_id == event.event_id, db_events), None)
         if db_event:

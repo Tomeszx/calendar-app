@@ -1,6 +1,5 @@
-import uuid
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
-from sqlalchemy import Date, Time, String, Boolean, UUID
+from sqlalchemy import Date, String, Boolean
 
 
 class Base(DeclarativeBase):

@@ -1,35 +1,13 @@
-<!-- Multi-step form -->
 <form id="msform" method="post" action="/event">
-    <!-- Progressbar -->
-    <div class="container">
-        <ul id="progressbar">
-            <li class="active">Personal Information</li>
-            <li>Event Details</li>
-        </ul>
-    </div>
-    <!-- Fieldsets -->
     <fieldset>
-        <h2 class="fs-title">Personal Information</h2>
-        <h3 class="fs-subtitle">Step 1</h3>
+        <h2 class="fs-title" id="first-step-title"></h2>
+        <h3 class="fs-subtitle" id="first-step-subtitle">Krok 1</h3>
+        <input type="text" name="event_type" id="event_type" required />
+        <input id="date" type="text" name="date" placeholder="Date"/>
         <input type="text" name="name" placeholder="Name" required/>
         <input type="email" name="email" placeholder="Email" required/>
-        <input type="button" name="next" class="next action-button" value="Next"/>
-    </fieldset>
-    <fieldset>
-        <h2 class="fs-title">Event Details</h2>
-        <h3 class="fs-subtitle">Step 2</h3>
-        <select name="event_type" id="event_type" required>
-            <option value="" disabled selected>Select Event Type</option>
-            <option value="Ślub">Ślub</option>
-            <option value="Sesja w plenerze">Sesja w plenerze</option>
-            <option value="Sesja biznesowa">Sesja biznesowa</option>
-            <option value="Sesja ciążowa">Sesja ciążowa</option>
-        </select>
-        <input id="date" type="text" name="date" placeholder="Date"/>
-        <input type="time" name="start_time" placeholder="Start Time" required/>
         <input type="text" name="location" placeholder="location" required/>
-        <input type="button" name="previous" class="previous action-button" value="Previous"/>
-        <button type="submit" class="action-button">Submit</button>
+        <button type="submit" class="action-button">Zatwierdź</button>
     </fieldset>
     <link rel="stylesheet" href="/templates/css/form_styles.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.3/jquery.min.js"></script>

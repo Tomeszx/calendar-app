@@ -6,7 +6,7 @@
     <title>Calendar</title>
     <link rel="stylesheet" href="/templates/css/calendar_styles.css">
 </head>
-<body onload="get_new_month(0)">
+<body>
 <div id="iframePopup" class="popup">
     <div class="popup-content" id="closeIframe">
         <span class="close">&times;</span>
@@ -14,21 +14,29 @@
     </div>
 </div>
 <div id="calendar">
-    <div id="header">
-        <button id="prev" onclick="get_new_month(-1)">&lt;</button>
-        <h2 id="monthYear" title="{{ date }}"> {{ month_and_year_name }} </h2>
-        <button id="next" onclick="get_new_month(1)">&gt;</button>
+    <h2 class="reservation-info">Wybierz rodzaj wydarzenia, które chcesz zarezerwować</h2>
+    <div class="tabs">
+        {% for i, event_name in events %}
+        <div class="tab" data-event={{event_name}}>{{' '.join(event_name.split('_')).title()}}</div>
+        {% endfor %}
     </div>
-    <div class="weekdays">
-        <div>Mon</div>
-        <div>Tue</div>
-        <div>Wed</div>
-        <div>Thu</div>
-        <div>Fri</div>
-        <div>Sat</div>
-        <div>Sun</div>
+    <div id="month">
+        <div id="navigation">
+            <button class="nav" id="prev" onclick="get_new_month(-1)">&lt;</button>
+            <h2 id="monthYear" title="{{ date }}"></h2>
+            <button class="nav" id="next" onclick="get_new_month(1)">&gt;</button>
+        </div>
+        <div class="weekdays">
+            <div>Mon</div>
+            <div>Tue</div>
+            <div>Wed</div>
+            <div>Thu</div>
+            <div>Fri</div>
+            <div>Sat</div>
+            <div>Sun</div>
+        </div>
+        <div id="weeks"></div>
     </div>
-    <div id="weeks"></div>
 </div>
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.3/jquery.min.js"></script>

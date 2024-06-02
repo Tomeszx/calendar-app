@@ -1,83 +1,108 @@
 body {
-  font-family: Arial, sans-serif;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  min-height: 100vh;
-  margin: 0;
-  background-color: #f4f4f4;
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    margin: 0;
+    background-color: #f4f4f4;
+    padding-top: 60px;
 }
 
 #calendar {
-  width: 100%;
-  max-width: 900px;
-  background: white;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
-  overflow: hidden;
+    max-width: 900px;
+    border-radius: 8px;
+    overflow: hidden;
+    width: 100%;
 }
 
-#header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 20px;
-  background-color: #027702;
-  color: white;
-  position: fixed;
-  top: 0;
-  width: 100%;
-  max-width: 860px;
-  z-index: 1;
+.reservation-info {
+    display: flex;
+    justify-content: center;
+}
+
+.tabs {
+    display: flex;
+    justify-content: center;
+}
+
+.tab {
+    padding: 15px 40px;
+    border: 1px solid #ccc;
+    border-bottom: none;
+    background: #f1f1f1;
+    cursor: pointer;
+    box-shadow: 0 30px 30px rgba(0, 0, 0, 0.1);
+}
+
+.tab.active {
+    background: #fff;
+    border-top: 4px solid #007bff;
+    font-weight: bold;
+    display: block;
+    pointer-events: none;
+}
+
+#month {
+    display: none;
+}
+
+#navigation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #027702;
+    color: white;
+    max-width: 860px;
 }
 
 .weekdays, .week {
-  display: flex;
-  flex-wrap: wrap;
+    display: flex;
+    flex-wrap: wrap;
 }
 
 .weekdays div, .week button {
-  width: calc(100% / 7);
-  text-align: center;
-  padding: 40px;
-  box-sizing: border-box;
+    width: calc(100% / 7);
+    text-align: center;
+    padding: 40px;
+    box-sizing: border-box;
 }
 
 .weekdays {
-  background-color: #ddd;
-  margin-top: 60px; /* Adjust this value if your header height changes */
+    background-color: #ddd;
 }
 
 .week button {
-  border: 1px solid #ddd;
-  min-height: 80px;
-  position: relative;
+    border: 1px solid #ddd;
+    min-height: 80px;
+    position: relative;
 }
 
-.free {
-  background-color: buttonface;
-  cursor: pointer;
+.free, .free-not-confirmed, .free-confirmed{
+    background-color: buttonface;
+    cursor: pointer;
 }
 
-.free:active {
-  border-color: darkblue;
-  background-color: #e8e4df;
+.free:active, .free-not-confirmed:active, .free-confirmed:active {
+    border-color: darkblue;
+    background-color: #e8e4df;
 }
 
-.confirmed {
-  background-color: #a11a1a;
-  pointer-events: none;
+.busy-confirmed {
+    background-color: #a11a1a;
+    pointer-events: none;
 }
 
-.not-confirmed {
-  background-color: #eccf41;
-  pointer-events: none;
+.busy-not-confirmed {
+    background-color: #eccf41;
+    pointer-events: none;
 }
 
 .None {
-  color: buttonface;
-  background-color: buttonface;
-  pointer-events: none;
+    color: buttonface;
+    background-color: buttonface;
+    pointer-events: none;
 }
 
 /* Styles for the popup */

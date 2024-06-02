@@ -50,12 +50,12 @@ class EventCreate(BaseModel):
     def as_form(
             cls,
             name: str = Form(...),
-            email: EmailStr = Form(1),
-            start: str = Form(2),
-            event_type: str = Form(4),
-            location: str = Form(5),
+            email: EmailStr = Form(...),
+            event_type: str = Form(...),
+            date: str = Form(...),
+            location: str = Form(...),
     ):
-        start_date = datetime.datetime.strptime(start, "%Y.%m.%d").date()
+        start_date = datetime.datetime.strptime(date, "%Y.%m.%d").date()
         end_date = start_date
         return cls(
             name=name,
