@@ -1,4 +1,4 @@
-from model.db_event import Base
+from models.db_event import Base
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 

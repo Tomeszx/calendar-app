@@ -1,7 +1,7 @@
 from calendar import monthrange
 from datetime import date
-from model.api_event import Event
-from model.db_event import DBEvent
+from models.api_event import Event
+from models.db_event import DBEvent
 from pydantic import BaseModel
 from typing import List, Tuple
 

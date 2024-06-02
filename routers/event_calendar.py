@@ -6,7 +6,7 @@ from starlette.templating import Jinja2Templates
 
 from db.core import get_db
 from db.event import get_all_future_events
-from model.event_calendar import Month
+from models.event_calendar import Month
 from utilites.config_parser import get_config_data
 from .limiter import limiter
 from fastapi import APIRouter, Request

@@ -10,7 +10,7 @@ from sqlalchemy.orm import Session
 
 from db.core import get_db
 from db.event import get_all_future_events, update_db_events, delete_db_events
-from model.event_calendar import Month
+from models.event_calendar import Month
 from routers.event import route as event_route
 from routers.event_calendar import route as calendar_route
 from routers.limiter import limiter

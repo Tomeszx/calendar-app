@@ -4,7 +4,7 @@ from gcsa.google_calendar import GoogleCalendar
 from gcsa.event import Event as GoogleEvent
 from googleapiclient.errors import HttpError
 
-from model.api_event import EventCreate
+from models.api_event import EventCreate
 from utilites.config_parser import get_config_data
 
 

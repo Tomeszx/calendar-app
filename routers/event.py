@@ -9,7 +9,7 @@ from services.google_calendar import add_event
 from .limiter import limiter
 from fastapi import APIRouter, Request
 
-from model.api_event import EventCreate
+from models.api_event import EventCreate
 
 route = APIRouter(prefix="/event")
 templates = Jinja2Templates(directory="templates")

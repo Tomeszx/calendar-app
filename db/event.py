@@ -3,8 +3,8 @@ from typing import List, Iterable
 from sqlalchemy.orm import Session
 
 from utilites.config_parser import get_config_data
-from model.api_event import EventCreate
-from model.db_event import DBEvent
+from models.api_event import EventCreate
+from models.db_event import DBEvent
 from gcsa.event import Event as GoogleEvent
 
 
