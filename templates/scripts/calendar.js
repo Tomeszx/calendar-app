@@ -8,7 +8,7 @@ function get_new_month(direction) {
     let date_year_path = new_date.getFullYear().toString() + '/' + String(new_date.getMonth() + 1)
     $.ajax({
         type: "GET",
-        url: `http://127.0.0.1:8000/calendar/${date_year_path}?event=${event}`,
+        url: `${document.URL}calendar/${date_year_path}?event=${event}`,
         success: function (month) {
             replace_new_month(month, new_date);
         },
