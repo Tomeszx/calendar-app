@@ -43,4 +43,4 @@ async def read_root(request: Request, db: Session = Depends(get_db)) -> HTMLResp
         'date': current_date.strftime("%d.%m.%Y"),
         'events': enumerate(events_names.keys())
     }
-    return templates.TemplateResponse('calendar.html', context=context)
+    return templates.TemplateResponse(name='calendar.html', context=context)

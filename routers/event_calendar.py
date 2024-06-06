@@ -15,7 +15,7 @@ route = APIRouter(prefix="/calendar", tags=["calendar"])
 templates = Jinja2Templates(directory="templates")
 
 
-@route.get("/{year}/{month}", response_model=Month)
+@route.get("", response_model=Month)
 @limiter.limit("3/second")
 async def get_all_events(request: Request, year: int, month: int, event: str, db: Session = Depends(get_db)) -> Month:
     date = datetime(year=year, month=month, day=1)
