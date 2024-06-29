@@ -1,4 +1,7 @@
 function get_new_month(direction) {
+    document.getElementById('next').setAttribute('disabled', '')
+    document.getElementById('prev').setAttribute('disabled', '')
+
     let element = document.getElementsByClassName('tab active')[0]
     let event = element.getAttribute('data-event')
     let date_string = document.getElementById('monthYear').getAttribute('title').toString();
@@ -14,6 +17,8 @@ function get_new_month(direction) {
             replace_new_month(month, new_date);
         },
     });
+    document.getElementById('next').removeAttribute('disabled');
+    document.getElementById('prev').removeAttribute('disabled');
 }
 
 
@@ -43,8 +48,8 @@ function replace_new_month(month, date) {
         newContent.lastChild.appendChild(button);
     });
     let calendar_navigation = document.getElementById('monthYear')
-    calendar_navigation.textContent = date.toLocaleString('default', {month: 'long', year: 'numeric'}).toUpperCase()
-    calendar_navigation.title = date.toLocaleString('default', {year: 'numeric', month: 'numeric', day: 'numeric'})
+    calendar_navigation.textContent = date.toLocaleString('pl-PL', {month: 'long', year: 'numeric'}).toUpperCase()
+    calendar_navigation.title = date.toLocaleString('pl-PL', {year: 'numeric', month: 'numeric', day: 'numeric'})
     document.getElementById('weeks').replaceWith(newContent);
 }
 
@@ -78,6 +83,7 @@ $(document).ready(function () {
         let month = document.getElementById('month')
         if (month !== null){
             month.id += '-active'
+            document.getElementById('guide').id += '-active'
         }
     });
 });

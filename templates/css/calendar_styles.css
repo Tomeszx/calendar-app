@@ -151,3 +151,45 @@ iframe {
     height: calc(100% - 40px); /* Adjust to avoid overlapping with padding */
     border: none;
 }
+
+#guide {
+    display: none;
+}
+
+#guide-active {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  margin-top: 20px;
+  border-top: 1px solid #ddd;
+}
+
+.guide-item {
+  display: flex;
+  align-items: center;
+  margin-right: 15px;
+}
+
+.guide-item-color {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+  border-radius: 50%;
+}
+
+#guide-confirmed-event {
+  background-color: #a11a1a;
+}
+
+#guide-not-confirmed-event {
+  background-color: #eccf41;
+}
+
+#guide-multiple-events {
+  background-color: rgb(218, 218, 199);
+}
+
+.guide-item-value {
+  font-size: 0.8rem;
+}

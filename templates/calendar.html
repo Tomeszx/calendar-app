@@ -1,44 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calendar</title>
-    <link rel="stylesheet" href="/templates/css/calendar_styles.css">
-</head>
-<body>
-<div id="iframePopup" class="popup">
-    <div class="popup-content" id="closeIframe">
-        <span class="close">&times;</span>
-        <iframe id="iframeContent"></iframe>
-    </div>
-</div>
-<div id="calendar">
-    <h2 class="reservation-info">Wybierz rodzaj wydarzenia, które chcesz zarezerwować</h2>
-    <div class="tabs">
-        {% for i, event_name in events %}
-        <div class="tab" data-event={{event_name}}>{{' '.join(event_name.split('_')).title()}}</div>
-        {% endfor %}
-    </div>
-    <div id="month">
-        <div id="navigation">
-            <button class="nav" id="prev" onclick="get_new_month(-1)">&lt;</button>
-            <h2 id="monthYear" title="{{ date }}"></h2>
-            <button class="nav" id="next" onclick="get_new_month(1)">&gt;</button>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Calendar</title>
+        <link rel="stylesheet" href="/templates/css/calendar_styles.css">
+    </head>
+    <body>
+        <div id="iframePopup" class="popup">
+            <div class="popup-content" id="closeIframe">
+                <span class="close">&times;</span>
+                <iframe id="iframeContent"></iframe>
+            </div>
         </div>
-        <div class="weekdays">
-            <div>Mon</div>
-            <div>Tue</div>
-            <div>Wed</div>
-            <div>Thu</div>
-            <div>Fri</div>
-            <div>Sat</div>
-            <div>Sun</div>
+        <div id="calendar">
+            <h2 class="reservation-info">Wybierz rodzaj wydarzenia, które chcesz zarezerwować</h2>
+            <div class="tabs">
+                {% for i, event_name in events %}
+                <div class="tab" data-event={{event_name}}>{{' '.join(event_name.split('_')).title()}}</div>
+                {% endfor %}
+            </div>
+            <div id="month">
+                <div id="navigation">
+                    <button class="nav" id="prev" onclick="get_new_month(-1)">&lt;</button>
+                    <h2 id="monthYear" title="{{ date }}"></h2>
+                    <button class="nav" id="next" onclick="get_new_month(1)">&gt;</button>
+                </div>
+                <div class="weekdays">
+                    <div>Mon</div>
+                    <div>Tue</div>
+                    <div>Wed</div>
+                    <div>Thu</div>
+                    <div>Fri</div>
+                    <div>Sat</div>
+                    <div>Sun</div>
+                </div>
+                <div id="weeks"></div>
+            </div>
+            <div id="guide">
+                <div class="guide-item">
+                    <div class="guide-item-color" id="guide-confirmed-event"></div>
+                    <p class="guide-item-value">Potwierdzona rezerwacja</p>
+                </div>
+                <div class="guide-item">
+                    <div class="guide-item-color" id="guide-not-confirmed-event"></div>
+                    <p class="guide-item-value">Niepotwierdzona rezerwacja</p>
+                </div>
+                <div class="guide-item">
+                    <div class="guide-item-color" id="guide-multiple-events"></div>
+                    <p class="guide-item-value">Wiele rezerwacji</p>
+                </div>
+            </div>
         </div>
-        <div id="weeks"></div>
-    </div>
-</div>
-</body>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.3/jquery.min.js"></script>
-<script type="text/javascript" src="/templates/scripts/calendar.js"></script>
+    </body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.3/jquery.min.js"></script>
+    <script type="text/javascript" src="/templates/scripts/calendar.js"></script>
 </html>
