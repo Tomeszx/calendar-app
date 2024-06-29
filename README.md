@@ -11,6 +11,7 @@ The purpose of this app is scheduling events and integration with Google Calenda
 
 ## How to run the app locally
 - You need to get the oauth2 file from Google.
+- Update the config.
 - Then run this command:
 ```
 uvicorn main:app
