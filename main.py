@@ -1,5 +1,5 @@
+import pathlib
 from datetime import datetime
-from pathlib import Path
 
 from fastapi import FastAPI, Request
 from fastapi.params import Depends
@@ -12,27 +12,31 @@ from db.core import get_db
 from db.event import get_all_future_events, update_db_events, delete_db_events
 from models.event_calendar import Month
 from routers.event import route as event_route
-from routers.event_calendar import route as calendar_route
+from routers.calendar import route as calendar_route
 from routers.limiter import limiter
-from services.google_calendar import get_google_events, delete_google_events
+from services.google_calendar import get_g_calendar
 from utilites.config_parser import get_config_data
 
 app = FastAPI()
 app.include_router(router=event_route)
 app.include_router(router=calendar_route)
 app.state.limiter = limiter
-templates = Jinja2Templates(directory="templates")
-app.mount("/templates", StaticFiles(directory=Path(__file__).parent.absolute() / "templates"), name="templates")
+templates_path = pathlib.Path(__file__).parent.absolute().joinpath("templates")
+templates = Jinja2Templates(directory=str(templates_path))
+app.mount("/templates", StaticFiles(directory=templates_path), name="templates")
 
 
 @app.get("/", response_class=HTMLResponse, tags=["get"])
 @limiter.limit("1/second")
-async def read_root(request: Request, db: Session = Depends(get_db)) -> HTMLResponse:
+async def read_root(
+        request: Request, db: Session = Depends(get_db), g_calendar: get_g_calendar = Depends(get_g_calendar)
+) -> HTMLResponse:
+
     current_date = datetime.now()
-    all_google_events = get_google_events(current_date)
+    all_google_events = g_calendar.get_google_events(current_date)
     update_db_events(all_google_events, db)
     deleted_events = delete_db_events(all_google_events, db)
-    delete_google_events(deleted_events)
+    g_calendar.delete_events(deleted_events)
     events = get_all_future_events(current_date, db)
     events_names = dict(get_config_data('events_max_per_day'))
 

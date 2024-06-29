@@ -1,8 +1,7 @@
-from datetime import datetime
-
-from gcsa.attendee import Attendee
+from datetime import datetime, timedelta
 
 from db.event import get_all_future_events, create_db_event, update_db_events, get_event_by_id, delete_db_events
+from gcsa.attendee import Attendee
 from gcsa.event import Event as GoogleEvent
 from models.api_event import EventCreate
 from tests.db_test_data import get_test_data
@@ -23,7 +22,7 @@ def test_get_event_by_id():
 def test_get_all_future_events():
     db = next(override_get_db())
     events = get_all_future_events(datetime.today().date(), db)
-    for event, expected_event in zip(events, TEST_DATA):
+    for event, expected_event in zip(events, TEST_DATA, strict=True):
         assert event == expected_event
 
 
@@ -31,7 +30,7 @@ def test_create_db_event():
     db = next(override_get_db())
     today = datetime.today()
     expected_event = EventCreate.as_form(
-        date=datetime(today.year, today.month + 1, today.day).strftime('%Y.%m.%d'),
+        date=(datetime(today.year, today.month, today.day) + timedelta(weeks=10)).strftime('%Y.%m.%d'),
         name='Test3',
         email='test@gmail.com',
         location='Warszawa, Hoża 51',

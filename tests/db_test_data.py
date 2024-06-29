@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 from models.db_event import DBEvent
 
 
@@ -17,8 +17,8 @@ def get_test_data():
         ),
         DBEvent(
             google_event_id='Test2',
-            start=datetime(today.year, today.month, today.day + 2).date(),
-            end=datetime(today.year, today.month, today.day + 4).date(),
+            start=(datetime(today.year, today.month, today.day) + timedelta(days=2)).date(),
+            end=(datetime(today.year, today.month, today.day) + timedelta(days=4)).date(),
             name='Test2',
             email='test@gmail.com',
             location='Warszawa, Hoża 51',
