@@ -14,5 +14,8 @@ The purpose of this app is scheduling events and integration with Google Calenda
 - Update the config.
 - Then run this command:
 ```
+pip install -r requirements.txt
+```
+```
 uvicorn main:app
 ```
