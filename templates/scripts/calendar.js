@@ -45,6 +45,10 @@ function replace_new_month(month, date) {
         }
         button.textContent = day.month_index;
         button.setAttribute("onclick", "open_iframe(event)");
+        if (Date.parse(day.date) <= Date.now()){
+            button.disabled = true
+            button.style.pointerEvents = 'none'
+        }
         newContent.lastChild.appendChild(button);
     });
     let calendar_navigation = document.getElementById('monthYear')

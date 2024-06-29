@@ -9,7 +9,7 @@ from utilites.config_parser import get_config_data
 
 
 class Day(BaseModel):
-    month_index: int
+    month_index: int | None
     status: str
     date: str
     events: List[Event]
@@ -37,7 +37,7 @@ class Day(BaseModel):
     def create(cls, max_days: int, event_date: date, events: List[DBEvent], max_events: int):
         if not event_date or event_date.day > max_days:
             return Day(
-                month_index=0, status='None', events=[], date='None',
+                month_index=None, status='None', events=[], date='None',
                 max_events_num=max_events, percentage_filled='0%'
             )
 

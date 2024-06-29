@@ -100,7 +100,6 @@ body {
 }
 
 .None {
-    color: buttonface;
     background-color: buttonface;
     pointer-events: none;
 }
