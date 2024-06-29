@@ -1,5 +1,4 @@
 import datetime
-from uuid import UUID
 
 from fastapi.params import Form
 from pydantic import BaseModel, EmailStr
@@ -9,8 +8,8 @@ class Event(BaseModel):
     google_event_id: str
     name: str
     email: EmailStr
-    start: datetime.date
-    end: datetime.date
+    start: datetime.date | datetime.datetime
+    end: datetime.date | datetime.datetime
     event_type: str
     location: str
     confirmed: bool = False
@@ -18,20 +17,21 @@ class Event(BaseModel):
     @classmethod
     def as_form(
             cls,
-            google_event_id: UUID = Form(...),
-            name: str = Form(1),
-            email: EmailStr = Form(2),
-            date: str = Form(3),
-            start_time: datetime.time = Form(4),
-            event_type: str = Form(5),
-            location: str = Form(6),
+            google_event_id: str = Form(...),
+            name: str = Form(...),
+            email: EmailStr = Form(...),
+            event_type: str = Form(...),
+            date: str = Form(...),
+            location: str = Form(...),
     ):
+        start_date = datetime.datetime.strptime(date, "%Y.%m.%d").date()
+        end_date = start_date
         return cls(
             google_event_id=google_event_id,
             name=name,
             email=email,
-            date=datetime.datetime.strptime(date, "%Y.%m.%d"),
-            start_time=start_time,
+            start=start_date,
+            end=end_date,
             event_type=event_type,
             location=location,
         )

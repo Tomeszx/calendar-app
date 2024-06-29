@@ -17,3 +17,17 @@ class DBEvent(Base):
     location: Mapped[str] = mapped_column(String)
     event_type: Mapped[str] = mapped_column(String)
     confirmed: Mapped[bool] = mapped_column(Boolean)
+
+    def __eq__(self, other) -> bool:
+        try:
+            assert self.google_event_id == other.google_event_id
+            assert self.start == other.start
+            assert self.end == other.end
+            assert self.name == other.name
+            assert self.email == other.email
+            assert self.location == other.location
+            assert self.event_type == other.event_type
+            assert self.confirmed == other.confirmed
+        except AssertionError:
+            return False
+        return True

@@ -1,8 +1,11 @@
-from model.db_event import Base
+import os
+
+from models.db_event import Base
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
-DATABASE_URL = "sqlite:///db/app.db"
+FILE_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__))) + "/app.db"
+DATABASE_URL = f"sqlite:///{FILE_PATH}"
 
 
 engine = create_engine(DATABASE_URL)
