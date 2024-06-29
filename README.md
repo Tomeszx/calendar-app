@@ -10,4 +10,9 @@ The purpose of this app is scheduling events and integration with Google Calenda
 <img width="600" alt="Zrzut ekranu 2024-06-29 o 16 27 07" src="https://github.com/Tomeszx/calendar-app/assets/91263441/3c34318e-dff0-4dea-b5e2-626faa0480b8">
 
 ## How to run the app locally
-```uvicorn main:app```
+- You need to get the oauth2 file from Google.
+- Update the config.
+- Then run this command:
+```
+uvicorn main:app
+```
